@@ -128,78 +128,6 @@ const InvoiceForm = ({ data, setData, onViewInvoice }) => {
                 </div>
                 <div className="grid-2">
                     <div className="input-group">
-                        <label>PMSG Application Number</label>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <span style={{
-                                padding: '0.6rem 0.8rem',
-                                backgroundColor: '#f1f5f9',
-                                border: '1px solid var(--border-color)',
-                                borderRight: 'none',
-                                borderRadius: '8px 0 0 8px',
-                                fontWeight: '600',
-                                color: 'var(--primary)',
-                                fontSize: '0.9rem',
-                                whiteSpace: 'nowrap',
-                                userSelect: 'none'
-                            }}>
-                                NP-APSPD-
-                            </span>
-                            <input
-                                type="text"
-                                style={{ borderRadius: '0 8px 8px 0', flex: 1 }}
-                                value={getPmsgNumericPart(data.pmsgNo || data.buyer?.pmsgNo)}
-                                onChange={(e) => handlePmsgChange(e.target.value)}
-                                placeholder="XXXXXXXX"
-                            />
-                        </div>
-                        {duplicateInvoice && (
-                            <div style={{
-                                marginTop: '0.6rem',
-                                padding: '0.85rem 1rem',
-                                backgroundColor: '#fffbebfb',
-                                border: '1px solid #fde68a',
-                                borderLeft: '4px solid #f59e0b',
-                                borderRadius: '8px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '0.5rem'
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#b45309', fontWeight: 600, fontSize: '0.9rem' }}>
-                                    <AlertTriangle size={18} color="#d97706" />
-                                    <span>Invoice already created for this Application Number!</span>
-                                </div>
-                                <div style={{ fontSize: '0.85rem', color: '#92400e', lineHeight: '1.4' }}>
-                                    Invoice <strong>#{duplicateInvoice.invoiceNo}</strong> was previously created for <strong>{duplicateInvoice.buyer?.name || 'Customer'}</strong>.
-                                </div>
-                                <div>
-                                    <button
-                                        type="button"
-                                        className="btn"
-                                        onClick={() => onViewInvoice && onViewInvoice(duplicateInvoice)}
-                                        style={{
-                                            backgroundColor: '#f59e0b',
-                                            color: 'white',
-                                            border: 'none',
-                                            padding: '0.45rem 0.9rem',
-                                            borderRadius: '6px',
-                                            fontSize: '0.85rem',
-                                            fontWeight: 600,
-                                            cursor: 'pointer',
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            gap: '0.4rem',
-                                            marginTop: '0.2rem'
-                                        }}
-                                    >
-                                        <Eye size={16} /> View / Edit Invoice ({duplicateInvoice.invoiceNo})
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-                <div className="grid-2">
-                    <div className="input-group">
                         <label>Delivery Note</label>
                         <input type="text" value={data.deliveryNote} onChange={(e) => handleChange(e, null, 'deliveryNote')} />
                     </div>
@@ -244,9 +172,53 @@ const InvoiceForm = ({ data, setData, onViewInvoice }) => {
                             style={{ borderRadius: '0 8px 8px 0', flex: 1 }}
                             value={getPmsgNumericPart(data.pmsgNo || data.buyer?.pmsgNo)}
                             onChange={(e) => handlePmsgChange(e.target.value)}
-                            placeholder="15823197"
+                            placeholder="XXXXXXXX"
                         />
                     </div>
+                    {duplicateInvoice && (
+                        <div style={{
+                            marginTop: '0.6rem',
+                            padding: '0.85rem 1rem',
+                            backgroundColor: '#fffbebfb',
+                            border: '1px solid #fde68a',
+                            borderLeft: '4px solid #f59e0b',
+                            borderRadius: '8px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0.5rem'
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#b45309', fontWeight: 600, fontSize: '0.9rem' }}>
+                                <AlertTriangle size={18} color="#d97706" />
+                                <span>Invoice already created for this Application Number!</span>
+                            </div>
+                            <div style={{ fontSize: '0.85rem', color: '#92400e', lineHeight: '1.4' }}>
+                                Invoice <strong>#{duplicateInvoice.invoiceNo}</strong> was previously created for <strong>{duplicateInvoice.buyer?.name || 'Customer'}</strong>.
+                            </div>
+                            <div>
+                                <button
+                                    type="button"
+                                    className="btn"
+                                    onClick={() => onViewInvoice && onViewInvoice(duplicateInvoice)}
+                                    style={{
+                                        backgroundColor: '#f59e0b',
+                                        color: 'white',
+                                        border: 'none',
+                                        padding: '0.45rem 0.9rem',
+                                        borderRadius: '6px',
+                                        fontSize: '0.85rem',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.4rem',
+                                        marginTop: '0.2rem'
+                                    }}
+                                >
+                                    <Eye size={16} /> View / Edit Invoice ({duplicateInvoice.invoiceNo})
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div className="input-group">
                     <label>Name</label>
@@ -276,10 +248,6 @@ const InvoiceForm = ({ data, setData, onViewInvoice }) => {
 
             <div className="form-section">
                 <h3 className="section-title"><Building2 size={20} /> Consignee Details</h3>
-                <div className="input-group">
-                    <label>PMSG Application Number</label>
-                    <input type="text" value={data.consignee.pmsgNo || ''} onChange={(e) => handleChange(e, 'consignee', 'pmsgNo')} placeholder="Enter PMSG Application Number" />
-                </div>
                 <div className="input-group">
                     <label>Name</label>
                     <input type="text" value={data.consignee.name} onChange={(e) => handleChange(e, 'consignee', 'name')} />

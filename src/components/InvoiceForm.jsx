@@ -41,6 +41,21 @@ const InvoiceForm = ({ data, setData }) => {
         setData(prev => ({ ...prev, items: newItems }));
     };
 
+    const getPmsgNumericPart = (val) => {
+        if (!val) return '';
+        return val.replace(/^NP-APSPD-/, '');
+    };
+
+    const handlePmsgChange = (val) => {
+        const numeric = val.replace(/^NP-APSPD-/, '').trim();
+        const fullNo = numeric ? `NP-APSPD-${numeric}` : '';
+        setData(prev => ({
+            ...prev,
+            pmsgNo: fullNo,
+            buyer: { ...prev.buyer, pmsgNo: fullNo }
+        }));
+    };
+
     return (
         <div className="invoice-form">
             <div className="form-section">
@@ -86,16 +101,29 @@ const InvoiceForm = ({ data, setData }) => {
                 <div className="grid-2">
                     <div className="input-group">
                         <label>PMSG Application Number</label>
-                        <input
-                            type="text"
-                            value={data.pmsgNo || data.buyer?.pmsgNo || ''}
-                            onChange={(e) => {
-                                const val = e.target.value;
-                                handleChange(e, null, 'pmsgNo');
-                                handleChange(e, 'buyer', 'pmsgNo');
-                            }}
-                            placeholder="Enter PMSG Application Number"
-                        />
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <span style={{
+                                padding: '0.6rem 0.8rem',
+                                backgroundColor: '#f1f5f9',
+                                border: '1px solid var(--border-color)',
+                                borderRight: 'none',
+                                borderRadius: '8px 0 0 8px',
+                                fontWeight: '600',
+                                color: 'var(--primary)',
+                                fontSize: '0.9rem',
+                                whiteSpace: 'nowrap',
+                                userSelect: 'none'
+                            }}>
+                                NP-APSPD-
+                            </span>
+                            <input
+                                type="text"
+                                style={{ borderRadius: '0 8px 8px 0', flex: 1 }}
+                                value={getPmsgNumericPart(data.pmsgNo || data.buyer?.pmsgNo)}
+                                onChange={(e) => handlePmsgChange(e.target.value)}
+                                placeholder="15823197"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="grid-2">
@@ -124,7 +152,29 @@ const InvoiceForm = ({ data, setData }) => {
                 <h3 className="section-title"><User size={20} /> Buyer Details</h3>
                 <div className="input-group">
                     <label>PMSG Application Number</label>
-                    <input type="text" value={data.buyer.pmsgNo || ''} onChange={(e) => handleChange(e, 'buyer', 'pmsgNo')} placeholder="Enter PMSG Application Number" />
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <span style={{
+                            padding: '0.6rem 0.8rem',
+                            backgroundColor: '#f1f5f9',
+                            border: '1px solid var(--border-color)',
+                            borderRight: 'none',
+                            borderRadius: '8px 0 0 8px',
+                            fontWeight: '600',
+                            color: 'var(--primary)',
+                            fontSize: '0.9rem',
+                            whiteSpace: 'nowrap',
+                            userSelect: 'none'
+                        }}>
+                            NP-APSPD-
+                        </span>
+                        <input
+                            type="text"
+                            style={{ borderRadius: '0 8px 8px 0', flex: 1 }}
+                            value={getPmsgNumericPart(data.pmsgNo || data.buyer?.pmsgNo)}
+                            onChange={(e) => handlePmsgChange(e.target.value)}
+                            placeholder="15823197"
+                        />
+                    </div>
                 </div>
                 <div className="input-group">
                     <label>Name</label>

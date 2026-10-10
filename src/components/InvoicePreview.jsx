@@ -7,6 +7,12 @@ const formatInvoiceDate = (date) => {
     return format(date, 'dd-MMM').toUpperCase() + ' -' + format(date, 'yyyy');
 };
 
+const formatPmsgNo = (val) => {
+    if (!val) return '';
+    if (val.startsWith('NP-APSPD-')) return val;
+    return `NP-APSPD-${val}`;
+};
+
 const InvoicePreview = forwardRef(({ data }, ref) => {
     const { subTotal, hsnSummary, totalGst, grandTotal } = calculateTotals(data.items);
 
@@ -50,8 +56,8 @@ const InvoicePreview = forwardRef(({ data }, ref) => {
                     </tr>
                     <tr>
                         <td colSpan="4" style={{ verticalAlign: 'top', borderRight: '1px solid #000', padding: '4px' }}>
-                            <div style={{ fontWeight: 'bold' }}>PMSG APPLICATION NO</div>
-                            <div style={{ minHeight: '1.2em', fontWeight: 'bold' }}>{data.pmsgNo || data.buyer?.pmsgNo}</div>
+                            <div style={{ fontWeight: 'bold', fontSize: '0.85em' }}>PMSG APPLICATION NO</div>
+                            <div style={{ minHeight: '1.2em', fontWeight: 'bold', fontSize: '0.95em', marginTop: '2px' }}>{formatPmsgNo(data.pmsgNo || data.buyer?.pmsgNo)}</div>
                         </td>
                         <td colSpan="2" style={{ verticalAlign: 'top', borderRight: '1px solid #000' }}>
                             <div style={{ fontWeight: 'bold' }}>Delivery Note</div>

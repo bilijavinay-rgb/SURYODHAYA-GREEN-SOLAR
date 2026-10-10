@@ -160,7 +160,8 @@ const InvoiceHistory = ({ onViewInvoice }) => {
         const clientNameMatch = invoice.buyer?.name?.toLowerCase().includes(term);
         const invoiceNoMatch = invoice.invoiceNo?.toLowerCase().includes(term);
         const mobileMatch = invoice.buyer?.mobile?.toLowerCase().includes(term);
-        const searchMatch = !searchTerm || clientNameMatch || invoiceNoMatch || mobileMatch;
+        const pmsgMatch = invoice.buyer?.pmsgNo?.toLowerCase().includes(term);
+        const searchMatch = !searchTerm || clientNameMatch || invoiceNoMatch || mobileMatch || pmsgMatch;
 
         // 2. Date Filter Check (Exact Day)
         const dateMatch = !filterDate || isSameDay(invoiceDate, filterDate);

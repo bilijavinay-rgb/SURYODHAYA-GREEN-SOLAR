@@ -25,6 +25,7 @@ export const generateExportFile = async (invoices, exportFormat) => {
         return {
             'Invoice No': invoice.invoiceNo,
             'Date': dateStr,
+            'PMSG App No': invoice.buyer?.pmsgNo || 'N/A',
             'Client Name': invoice.buyer?.name?.split(',')[0] || 'N/A',
             'Client Address': invoice.buyer?.address?.replace(/\n/g, ' ') || 'N/A',
             'Client GSTIN': invoice.buyer?.gstin || 'N/A',
@@ -50,6 +51,7 @@ export const generateExportFile = async (invoices, exportFormat) => {
         worksheet.columns = [
             { header: 'Invoice No', key: 'Invoice No', width: 15 },
             { header: 'Date', key: 'Date', width: 15 },
+            { header: 'PMSG App No', key: 'PMSG App No', width: 20 },
             { header: 'Client Name', key: 'Client Name', width: 25 },
             { header: 'Client Address', key: 'Client Address', width: 35 },
             { header: 'Client GSTIN', key: 'Client GSTIN', width: 20 },

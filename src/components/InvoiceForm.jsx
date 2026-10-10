@@ -108,6 +108,10 @@ const InvoiceForm = ({ data, setData }) => {
             <div className="form-section">
                 <h3 className="section-title"><User size={20} /> Buyer Details</h3>
                 <div className="input-group">
+                    <label>PMSG Application Number</label>
+                    <input type="text" value={data.buyer.pmsgNo || ''} onChange={(e) => handleChange(e, 'buyer', 'pmsgNo')} placeholder="Enter PMSG Application Number" />
+                </div>
+                <div className="input-group">
                     <label>Name</label>
                     <input type="text" value={data.buyer.name} onChange={(e) => handleChange(e, 'buyer', 'name')} />
                 </div>
@@ -135,6 +139,10 @@ const InvoiceForm = ({ data, setData }) => {
 
             <div className="form-section">
                 <h3 className="section-title"><Building2 size={20} /> Consignee Details</h3>
+                <div className="input-group">
+                    <label>PMSG Application Number</label>
+                    <input type="text" value={data.consignee.pmsgNo || ''} onChange={(e) => handleChange(e, 'consignee', 'pmsgNo')} placeholder="Enter PMSG Application Number" />
+                </div>
                 <div className="input-group">
                     <label>Name</label>
                     <input type="text" value={data.consignee.name} onChange={(e) => handleChange(e, 'consignee', 'name')} />

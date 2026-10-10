@@ -25,6 +25,7 @@ const initialData = {
 Central tax dt:31/12/2018/
 HSN/SAC" 00998736 GST Calculation@ 70% on taxable value @ 12% and 30% on taxable value @ 18%`,
   buyer: {
+    pmsgNo: "",
     name: "Mr/Mrs ",
     address: "#6-61,S KOTHAPALLI -515601\nSRI SATYA SAI (DIST)ANDHRA PRADESH.",
     state: "ANDHRA PRADESH",
@@ -32,6 +33,7 @@ HSN/SAC" 00998736 GST Calculation@ 70% on taxable value @ 12% and 30% on taxable
     mobile: ""
   },
   consignee: {
+    pmsgNo: "",
     name: "Mr/Mrs ",
     address: "#6-61,S KOTHAPALLI -515601\nSRI SATYA SAI (DIST)ANDHRA PRADESH.",
     state: "ANDHRA PRADESH",

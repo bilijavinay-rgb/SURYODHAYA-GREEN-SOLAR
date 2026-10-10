@@ -62,10 +62,11 @@ const InvoicePreview = forwardRef(({ data }, ref) => {
                     <tr>
                         <td colSpan="4" style={{ verticalAlign: 'top', borderRight: '1px solid #000', padding: '4px' }}>
                             <div style={{ fontWeight: 'bold' }}>Buyer (Bill to )</div>
-                            <div style={{ marginTop: '4px', fontWeight: 'bold' }}>{data.buyer.name}</div>
-                            {data.buyer.mobile && <div style={{ fontWeight: 'bold' }}>Mobile: {data.buyer.mobile}</div>}
-                            <div style={{ whiteSpace: 'pre-wrap', fontWeight: 'bold' }}>{data.buyer.address}</div>
-                            <div style={{ marginTop: '2px', fontWeight: 'bold' }}>STATE NAME: {data.buyer.state}, CODE: {data.buyer.stateCode}</div>
+                            {data.buyer?.pmsgNo && <div style={{ fontWeight: 'bold' }}>PMSG APP NO: {data.buyer.pmsgNo}</div>}
+                            <div style={{ marginTop: '4px', fontWeight: 'bold' }}>{data.buyer?.name}</div>
+                            {data.buyer?.mobile && <div style={{ fontWeight: 'bold' }}>Mobile: {data.buyer.mobile}</div>}
+                            <div style={{ whiteSpace: 'pre-wrap', fontWeight: 'bold' }}>{data.buyer?.address}</div>
+                            <div style={{ marginTop: '2px', fontWeight: 'bold' }}>STATE NAME: {data.buyer?.state}, CODE: {data.buyer?.stateCode}</div>
                         </td>
                         <td colSpan="4" style={{ verticalAlign: 'top', padding: 0 }}>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '1px solid #000' }}>
@@ -80,10 +81,11 @@ const InvoicePreview = forwardRef(({ data }, ref) => {
                             </div>
                             <div style={{ padding: '4px' }}>
                                 <div style={{ fontWeight: 'bold' }}>Consignee:</div>
-                                <div style={{ fontWeight: 'bold' }}>{data.consignee.name}</div>
-                                {data.consignee.mobile && <div style={{ fontWeight: 'bold' }}>Mobile: {data.consignee.mobile}</div>}
-                                <div style={{ whiteSpace: 'pre-wrap', fontWeight: 'bold' }}>{data.consignee.address}</div>
-                                <div style={{ marginTop: '2px', fontWeight: 'bold' }}>STATE NAME: {data.consignee.state}, CODE: {data.consignee.stateCode}</div>
+                                {data.consignee?.pmsgNo && <div style={{ fontWeight: 'bold' }}>PMSG APP NO: {data.consignee.pmsgNo}</div>}
+                                <div style={{ fontWeight: 'bold' }}>{data.consignee?.name}</div>
+                                {data.consignee?.mobile && <div style={{ fontWeight: 'bold' }}>Mobile: {data.consignee.mobile}</div>}
+                                <div style={{ whiteSpace: 'pre-wrap', fontWeight: 'bold' }}>{data.consignee?.address}</div>
+                                <div style={{ marginTop: '2px', fontWeight: 'bold' }}>STATE NAME: {data.consignee?.state}, CODE: {data.consignee?.stateCode}</div>
                             </div>
                         </td>
                     </tr>

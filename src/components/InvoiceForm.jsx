@@ -85,6 +85,21 @@ const InvoiceForm = ({ data, setData }) => {
                 </div>
                 <div className="grid-2">
                     <div className="input-group">
+                        <label>PMSG Application Number</label>
+                        <input
+                            type="text"
+                            value={data.pmsgNo || data.buyer?.pmsgNo || ''}
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                handleChange(e, null, 'pmsgNo');
+                                handleChange(e, 'buyer', 'pmsgNo');
+                            }}
+                            placeholder="Enter PMSG Application Number"
+                        />
+                    </div>
+                </div>
+                <div className="grid-2">
+                    <div className="input-group">
                         <label>Delivery Note</label>
                         <input type="text" value={data.deliveryNote} onChange={(e) => handleChange(e, null, 'deliveryNote')} />
                     </div>

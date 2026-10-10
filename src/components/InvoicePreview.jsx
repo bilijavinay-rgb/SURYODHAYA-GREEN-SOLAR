@@ -49,7 +49,10 @@ const InvoicePreview = forwardRef(({ data }, ref) => {
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan="4" style={{ height: '30px', borderRight: '1px solid #000' }}></td>
+                        <td colSpan="4" style={{ verticalAlign: 'top', borderRight: '1px solid #000', padding: '4px' }}>
+                            <div style={{ fontWeight: 'bold' }}>PMSG APPLICATION NO</div>
+                            <div style={{ minHeight: '1.2em', fontWeight: 'bold' }}>{data.pmsgNo || data.buyer?.pmsgNo}</div>
+                        </td>
                         <td colSpan="2" style={{ verticalAlign: 'top', borderRight: '1px solid #000' }}>
                             <div style={{ fontWeight: 'bold' }}>Delivery Note</div>
                             <div style={{ minHeight: '1.2em' }}>{data.deliveryNote}</div>
@@ -62,7 +65,6 @@ const InvoicePreview = forwardRef(({ data }, ref) => {
                     <tr>
                         <td colSpan="4" style={{ verticalAlign: 'top', borderRight: '1px solid #000', padding: '4px' }}>
                             <div style={{ fontWeight: 'bold' }}>Buyer (Bill to )</div>
-                            {data.buyer?.pmsgNo && <div style={{ fontWeight: 'bold' }}>PMSG APP NO: {data.buyer.pmsgNo}</div>}
                             <div style={{ marginTop: '4px', fontWeight: 'bold' }}>{data.buyer?.name}</div>
                             {data.buyer?.mobile && <div style={{ fontWeight: 'bold' }}>Mobile: {data.buyer.mobile}</div>}
                             <div style={{ whiteSpace: 'pre-wrap', fontWeight: 'bold' }}>{data.buyer?.address}</div>
@@ -81,7 +83,6 @@ const InvoicePreview = forwardRef(({ data }, ref) => {
                             </div>
                             <div style={{ padding: '4px' }}>
                                 <div style={{ fontWeight: 'bold' }}>Consignee:</div>
-                                {data.consignee?.pmsgNo && <div style={{ fontWeight: 'bold' }}>PMSG APP NO: {data.consignee.pmsgNo}</div>}
                                 <div style={{ fontWeight: 'bold' }}>{data.consignee?.name}</div>
                                 {data.consignee?.mobile && <div style={{ fontWeight: 'bold' }}>Mobile: {data.consignee.mobile}</div>}
                                 <div style={{ whiteSpace: 'pre-wrap', fontWeight: 'bold' }}>{data.consignee?.address}</div>

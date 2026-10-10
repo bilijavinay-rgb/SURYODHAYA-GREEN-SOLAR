@@ -95,6 +95,7 @@ function App() {
   });
   const [isGeneratingInvoiceNo, setIsGeneratingInvoiceNo] = useState(false);
   const [isSettingUpInvoice, setIsSettingUpInvoice] = useState(false);
+  const [isOpeningDoc, setIsOpeningDoc] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -278,10 +279,13 @@ function App() {
     }
   };
 
-  const handleViewFromHistory = (invoiceData) => {
+  const handleViewFromHistory = async (invoiceData) => {
+    setIsOpeningDoc(true);
+    await new Promise(resolve => setTimeout(resolve, 800));
     setData(invoiceData);
     setIsDirty(false); // Clean loaded data starts fresh
     setActiveTab('create');
+    setIsOpeningDoc(false);
   };
 
   const handleBackToDashboard = () => {
@@ -589,6 +593,31 @@ function App() {
                 style={{ margin: 0, fontWeight: 500, fontSize: '1.1rem', color: 'var(--text-main)', textAlign: 'center', lineHeight: '1.5' }}
               >
                 Saving...<br />Please wait while your invoice is saved.
+              </motion.h2>
+            </div>
+          </div>
+        )}
+
+        {isOpeningDoc && (
+          <div className="modal-overlay" style={{ zIndex: 9999 }}>
+            <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', padding: '3rem', minWidth: '350px' }}>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                style={{
+                  width: '60px',
+                  height: '60px',
+                  border: '4px solid rgba(59, 130, 246, 0.2)',
+                  borderTop: '4px solid #3b82f6',
+                  borderRadius: '50%'
+                }}
+              />
+              <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{ margin: 0, fontWeight: 500, fontSize: '1.1rem', color: 'var(--text-main)', textAlign: 'center', lineHeight: '1.5' }}
+              >
+                Opening document...<br />Please wait while we load your invoice.
               </motion.h2>
             </div>
           </div>

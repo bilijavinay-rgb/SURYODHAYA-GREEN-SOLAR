@@ -121,7 +121,7 @@ const InvoiceForm = ({ data, setData }) => {
                                 style={{ borderRadius: '0 8px 8px 0', flex: 1 }}
                                 value={getPmsgNumericPart(data.pmsgNo || data.buyer?.pmsgNo)}
                                 onChange={(e) => handlePmsgChange(e.target.value)}
-                                placeholder="15823197"
+                                placeholder="XXXXXXXX"
                             />
                         </div>
                     </div>

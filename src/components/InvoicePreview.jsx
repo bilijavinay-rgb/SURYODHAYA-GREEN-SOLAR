@@ -8,7 +8,7 @@ const formatInvoiceDate = (date) => {
 };
 
 const formatPmsgNo = (val) => {
-    if (!val) return '';
+    if (!val) return 'NP-APSPD-XXXXXXXX';
     if (val.startsWith('NP-APSPD-')) return val;
     return `NP-APSPD-${val}`;
 };

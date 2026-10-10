@@ -56,8 +56,9 @@ const InvoicePreview = forwardRef(({ data }, ref) => {
                     </tr>
                     <tr>
                         <td colSpan="4" style={{ verticalAlign: 'top', borderRight: '1px solid #000', padding: '4px' }}>
-                            <div style={{ fontWeight: 'bold', fontSize: '0.85em' }}>PMSG APPLICATION NO</div>
-                            <div style={{ minHeight: '1.2em', fontWeight: 'bold', fontSize: '0.95em', marginTop: '2px' }}>{formatPmsgNo(data.pmsgNo || data.buyer?.pmsgNo)}</div>
+                            <div style={{ fontWeight: 'bold', fontSize: '0.85em', whiteSpace: 'nowrap' }}>
+                                PMSG APPLICATION NO : {formatPmsgNo(data.pmsgNo || data.buyer?.pmsgNo)}
+                            </div>
                         </td>
                         <td colSpan="2" style={{ verticalAlign: 'top', borderRight: '1px solid #000' }}>
                             <div style={{ fontWeight: 'bold' }}>Delivery Note</div>

@@ -1,9 +1,37 @@
-import React from 'react';
-import { Plus, Trash2, User, Building2, Receipt, CreditCard, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Plus, Trash2, User, Building2, Receipt, CreditCard, Calendar, Eye, AlertTriangle } from 'lucide-react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { findInvoiceByPmsgNo } from '../utils/helpers';
 
-const InvoiceForm = ({ data, setData }) => {
+const InvoiceForm = ({ data, setData, onViewInvoice }) => {
+    const [duplicateInvoice, setDuplicateInvoice] = useState(null);
+
+    const pmsgVal = data.pmsgNo || data.buyer?.pmsgNo || '';
+
+    useEffect(() => {
+        let isMounted = true;
+        const checkDuplicate = async () => {
+            if (!pmsgVal) {
+                if (isMounted) setDuplicateInvoice(null);
+                return;
+            }
+            const found = await findInvoiceByPmsgNo(pmsgVal);
+            if (isMounted) {
+                if (found && found.invoiceNo !== data.invoiceNo) {
+                    setDuplicateInvoice(found);
+                } else {
+                    setDuplicateInvoice(null);
+                }
+            }
+        };
+        const timer = setTimeout(checkDuplicate, 400);
+        return () => {
+            isMounted = false;
+            clearTimeout(timer);
+        };
+    }, [pmsgVal, data.invoiceNo]);
+
     const handleChange = (e, section, field) => {
         const value = e.target ? e.target.value : e; // Handle both event and direct value (for DatePicker)
         if (section) {
@@ -124,6 +152,50 @@ const InvoiceForm = ({ data, setData }) => {
                                 placeholder="XXXXXXXX"
                             />
                         </div>
+                        {duplicateInvoice && (
+                            <div style={{
+                                marginTop: '0.6rem',
+                                padding: '0.85rem 1rem',
+                                backgroundColor: '#fffbebfb',
+                                border: '1px solid #fde68a',
+                                borderLeft: '4px solid #f59e0b',
+                                borderRadius: '8px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0.5rem'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#b45309', fontWeight: 600, fontSize: '0.9rem' }}>
+                                    <AlertTriangle size={18} color="#d97706" />
+                                    <span>Invoice already created for this Application Number!</span>
+                                </div>
+                                <div style={{ fontSize: '0.85rem', color: '#92400e', lineHeight: '1.4' }}>
+                                    Invoice <strong>#{duplicateInvoice.invoiceNo}</strong> was previously created for <strong>{duplicateInvoice.buyer?.name || 'Customer'}</strong>.
+                                </div>
+                                <div>
+                                    <button
+                                        type="button"
+                                        className="btn"
+                                        onClick={() => onViewInvoice && onViewInvoice(duplicateInvoice)}
+                                        style={{
+                                            backgroundColor: '#f59e0b',
+                                            color: 'white',
+                                            border: 'none',
+                                            padding: '0.45rem 0.9rem',
+                                            borderRadius: '6px',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 600,
+                                            cursor: 'pointer',
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '0.4rem',
+                                            marginTop: '0.2rem'
+                                        }}
+                                    >
+                                        <Eye size={16} /> View / Edit Invoice ({duplicateInvoice.invoiceNo})
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="grid-2">

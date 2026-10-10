@@ -296,3 +296,25 @@ export const saveTemplateData = async (templateData) => {
     return false;
   }
 };
+
+export const findInvoiceByPmsgNo = async (pmsgNo) => {
+  if (!pmsgNo) return null;
+  const trimmed = String(pmsgNo).trim();
+  if (!trimmed || trimmed === 'NP-APSPD-' || trimmed === 'NP-APSPD-XXXXXXXX') return null;
+  const numericPart = trimmed.replace(/^NP-APSPD-/, '').trim();
+  if (!numericPart || numericPart.length < 3) return null;
+
+  try {
+    const invoices = await getInvoices();
+    return invoices.find(inv => {
+      const invPmsg = inv.pmsgNo || inv.buyer?.pmsgNo;
+      if (!invPmsg) return false;
+      const invNumeric = String(invPmsg).replace(/^NP-APSPD-/, '').trim();
+      return invNumeric.toLowerCase() === numericPart.toLowerCase();
+    }) || null;
+  } catch (error) {
+    console.error('Error searching invoice by PMSG No:', error);
+    return null;
+  }
+};
+

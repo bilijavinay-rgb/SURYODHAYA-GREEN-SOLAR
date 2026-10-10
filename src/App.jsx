@@ -451,7 +451,7 @@ function App() {
                   animate={{ opacity: 1, x: 0 }}
                   className="card no-print form-panel"
                 >
-                  <InvoiceForm data={data} setData={handleDataChange} />
+                  <InvoiceForm data={data} setData={handleDataChange} onViewInvoice={handleViewFromHistory} />
                 </motion.div>
 
                 <motion.div
